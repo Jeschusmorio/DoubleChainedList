@@ -80,10 +80,18 @@ public class List {
 		Elem e1 = getElemByIndex(index1);
 		Elem e2 = getElemByIndex(index2);
 		
-		e1.lastAddress.nextAddress = e2;
-		e2.nextAddress.lastAddress = e1;
-		e1.nextAddress.lastAddress = e2;
-		e2.lastAddress.nextAddress = e1;
+		Elem temp = e1.nextAddress;
+		e1.nextAddress = e2.nextAddress;
+		e2.nextAddress = temp;
+		temp = e1.lastAddress;
+		e1.lastAddress = e2.lastAddress;
+		e2.lastAddress = temp;
+		
+		e1.lastAddress.lastAddress = e2;
+		e2.nextAddress.nextAddress = e1;
+		
+		e2.lastAddress.nextAddress = e2;
+		e1.nextAddress.lastAddress = e1;
 		//the pointers of each elements last and next element show to the other element
 	}
 	public void printList() {
