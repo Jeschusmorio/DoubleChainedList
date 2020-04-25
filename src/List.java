@@ -39,11 +39,43 @@ public class List {
 		}
 		return index;
 	}
-	public void addElem(int val) {
-		Elem nextElem = new Elem(val);
-		tail.nextAddress = nextElem;
-		nextElem.lastAddress = tail;
-		tail = nextElem;
+	public void addElem(int val, int index) {
+		if (index < 0) {
+			System.out.println("Positive index (0 included) expected!");
+			return;
+		}
+		if (index > length()) {
+			System.out.println("Index out of Bounds!");
+			return;
+		}
+		//if the Element is added at the back, it becomes the new tail
+		Elem addElem = new Elem(val);
+		if (index == length()) {
+			tail.nextAddress = addElem;
+			addElem.lastAddress = tail;
+			tail = addElem;
+			return;
+		}
+		//if the Element is added at the front, it becomes the new head
+		if (index == getIndexByElem(head)) {
+			head.lastAddress = addElem;
+			addElem.nextAddress = head;
+			head = addElem;
+			return;
+		}
+		//else the address of the element before and after have to point to the added element
+		Elem nextElem = getElemByIndex(index);
+		Elem lastElem = getElemByIndex(index - 1);
+		addElem.lastAddress = lastElem;
+		addElem.nextAddress = nextElem;
+		nextElem.lastAddress = addElem;
+		lastElem.nextAddress = addElem;
+	}
+	public void addHead(int val) {
+		addElem(val, getIndexByElem(head));
+	}
+	public void addTail(int val) {
+		addElem(val, length());
 	}
 	public void deleteElem(int index) {
 		if (index < 0) {
@@ -71,6 +103,12 @@ public class List {
 		lastElem.nextAddress = nextElem;
 		nextElem.lastAddress = lastElem;
 		//no pointer shows to deleteElem anymore => Garbage-Collector
+	}
+	public void deleteHead() {
+		deleteElem(getIndexByElem(head));
+	}
+	public void deleteTail() {
+		deleteElem(getIndexByElem(tail));
 	}
 	public void swap(int index1, int index2) {
 		if (index1 == index2) {
