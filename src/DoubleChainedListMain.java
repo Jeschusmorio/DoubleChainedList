@@ -12,7 +12,7 @@ public class DoubleChainedListMain {
 		l.addElem(60, 3);
 		System.out.println("After adding two elements inbetween:");
 		l.printList();
-		l.swap(1, 3);
+		l.swap(3, 1);
 		System.out.println("After swapping 1 and 3:");
 		l.printList();
 		System.out.println("Length of the List before Delete: " + l.length());

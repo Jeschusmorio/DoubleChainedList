@@ -115,22 +115,54 @@ public class List {
 			System.out.println("Nothing to swap here!");
 			return;
 		}
+		if (index1 > index2) { //index1 must be < index2
+			int temp = index1;
+			index1 = index2;
+			index2 = temp;
+		}
 		Elem e1 = getElemByIndex(index1);
 		Elem e2 = getElemByIndex(index2);
-		
-		Elem temp = e1.nextAddress;
-		e1.nextAddress = e2.nextAddress;
-		e2.nextAddress = temp;
-		temp = e1.lastAddress;
-		e1.lastAddress = e2.lastAddress;
-		e2.lastAddress = temp;
-		
-		e1.lastAddress.lastAddress = e2;
-		e2.nextAddress.nextAddress = e1;
-		
-		e2.lastAddress.nextAddress = e2;
-		e1.nextAddress.lastAddress = e1;
-		//the pointers of each elements last and next element show to the other element
+		if (e1 == null || e2 == null) {
+			System.out.println("Index out of Bounds!");
+			return;
+		}
+		if (e1.nextAddress == e2) { //right next to each other
+			e1.nextAddress = e2.nextAddress;
+			e2.lastAddress = e1.lastAddress;
+			
+			if (e1.nextAddress != null) {
+				e1.nextAddress.lastAddress = e1;
+			}
+			if (e2.lastAddress != null) {
+				e2.lastAddress.nextAddress = e2;
+			}
+			
+			e2.nextAddress = e1;
+			e1.lastAddress = e2;
+		} else {
+			Elem l = e2.lastAddress;
+			Elem n = e2.nextAddress;
+			
+			e2.lastAddress = e1.lastAddress;
+			e2.nextAddress = e1.nextAddress;
+			
+			e1.lastAddress = l;
+			e1.nextAddress = n;
+			
+			if (e2.nextAddress != null) {
+				e2.nextAddress.lastAddress = e2;
+			}
+			if (e2.lastAddress != null) {
+				e2.lastAddress.nextAddress = e2;
+			}
+			
+			if (e1.nextAddress != null) {
+				e1.nextAddress.lastAddress = e1;
+			}
+			if (e1.lastAddress != null) {
+				e1.lastAddress.nextAddress = e1;
+			}
+		}
 	}
 	public void printList() {
 		Elem currentElem = head;
