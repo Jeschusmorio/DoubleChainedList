@@ -12,8 +12,8 @@ public class DoubleChainedListMain {
 		l.addElem(60, 3);
 		System.out.println("After adding two elements inbetween:");
 		l.printList();
-		l.swap(3, 1);
-		System.out.println("After swapping 1 and 3:");
+		l.swap(4, 1);
+		System.out.println("After swapping 2. Element and tail:");
 		l.printList();
 		System.out.println("Length of the List before Delete: " + l.length());
 		l.deleteHead();
@@ -23,6 +23,9 @@ public class DoubleChainedListMain {
 		System.out.println("Length of the List after Delete: " + l.length());
 		l.deleteElem(1);
 		System.out.println("After deleting the element in the middle:");
+		l.printList();
+		l.swap(0, 1);
+		System.out.println("After swapping head and tail:");
 		l.printList();
 	}
 

@@ -126,6 +126,12 @@ public class List {
 			System.out.println("Index out of Bounds!");
 			return;
 		}
+		if (e1 == head) {
+			head = e2;
+		}
+		if (e2 == tail) {
+			tail = e1;
+		}
 		if (e1.nextAddress == e2) { //right next to each other
 			e1.nextAddress = e2.nextAddress;
 			e2.lastAddress = e1.lastAddress;
@@ -164,7 +170,7 @@ public class List {
 			}
 		}
 	}
-	public void printList() {
+	public void debugPrintList() {
 		Elem currentElem = head;
 		System.out.println("\tElement\t\t|\tAddress\t\t|\tValue\t\t|\tLast Address\t|\tNext Address");
 		System.out.println("------------------------+-----------------------+-----------------------+-----------------------+------------------------");
@@ -180,6 +186,17 @@ public class List {
 			}
 			System.out.print("\t|  ");
 			System.out.println(currentElem.nextAddress);
+			currentElem = currentElem.nextAddress;
+		}
+		System.out.println();
+	}
+	public void printList() {
+		Elem currentElem = head;
+		System.out.println("\tElement\t\t|\tValue");
+		System.out.println("------------------------+-----------------------");
+		for (int i = 1; i <= length(); i++) {
+			System.out.print("\t"+i + ". Element\t|\t  ");
+			System.out.println(currentElem.val);
 			currentElem = currentElem.nextAddress;
 		}
 		System.out.println();
